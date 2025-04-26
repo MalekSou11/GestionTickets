@@ -16,42 +16,49 @@ router.post('/register', async (req, res) => {
         const cryptedPass = await bcrypt.hashSync(data.password, salt);
         usr.password = cryptedPass;
 
-        await usr.save(); // ATTENDRE que l'utilisateur soit enregistré
+        await usr.save(); 
 
-        res.redirect('/login'); // REDIRIGER après la sauvegarde réussie
+        res.redirect('/login'); 
     } catch (err) {
-        res.status(400).send(err); // En cas d'erreur
+        res.status(400).send(err);
     }
 });
 
 
-router.post('/login', async (req, res) => { 
+router.post('/login', async (req, res) => {
+    const { email, password } = req.body;
     try {
-        const data = req.body;
-        const user = await User.findOne({ email: data.email });
-
+        const user = await User.findOne({ email });
         if (!user) {
-            return res.status(404).send('email or password invalid');
+            return res.status(400).send('Utilisateur non trouvé');
         }
 
-        const validPass = bcrypt.compareSync(data.password, user.password);
-
-        if (!validPass) {
-            return res.status(401).send('email or password invalid');
+        const validPassword = await bcrypt.compare(password, user.password);
+        if (!validPassword) {
+            return res.status(400).send('Mot de passe incorrect');
         }
 
-        const payload = {
-            _id: user._id,
-            email: user.email,
-            name: user.name
+        req.session.user = {
+            id: user._id,
+            role: user.role, 
+            email: user.email
         };
 
-        const token = jwt.sign(payload, '1234567');
         res.redirect('/ticket/dashboard');
-
     } catch (err) {
-        res.status(500).send('Server error');
+        console.error(err);
+        res.status(500).send('Erreur serveur');
     }
+});
+
+router.get('/logout', (req, res) => {
+    req.session.destroy((err) => {
+        if (err) {
+            console.error(err);
+            return res.status(500).send('Erreur lors de la déconnexion');
+        }
+        res.redirect('/login');
+    });
 });
 
 router.get('/dashboard', (req, res) => {

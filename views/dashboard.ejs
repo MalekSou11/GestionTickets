@@ -55,13 +55,26 @@
         .btn-delete {
             background-color: #dc3545;
         }
+        /* Ajout style bouton logout */
+        .btn-logout {
+            background-color: #e74c3c;
+            margin-left: 10px;
+        }
     </style>
 </head>
 <body>
 
     <div class="top-bar">
         <h1>Mes Tickets</h1>
-        <a href="/ticket/createTicket" class="btn">Créer un Ticket</a>
+        <div>
+            <% if (user && user.role === 'admin') { %>
+                <a href="/ticket/createTicket" class="btn">Créer un Ticket</a>
+            <% } %>
+
+            <% if (user) { %>
+                <a href="/user/logout" class="btn btn-logout">Se Déconnecter</a>
+            <% } %>
+        </div>
     </div>
 
     <div class="ticket-container">
@@ -75,13 +88,16 @@
                         <img class="ticket-image" src="/uploads/<%= ticket.image %>" alt="Image du ticket">
                     <% } %>
 
-                    <div class="actions">
-                        <a href="/ticket/editTicket/<%= ticket._id %>" class="btn btn-edit">Modifier</a>
-
-                        <form action="/ticket/deleteTickets/<%= ticket._id %>?_method=DELETE" method="POST" style="display:inline;">
-                            <button type="submit" class="btn btn-delete">Supprimer</button>
-                        </form>
-                    </div>
+                    <% if (user && user.role === 'admin') { %>
+                        <div class="actions">
+                            <a href="/ticket/editTicket/<%= ticket._id %>" class="btn btn-edit">Modifier</a>
+                    
+                            <form action="/ticket/deleteTickets/<%= ticket._id %>?_method=DELETE" method="POST" style="display:inline;">
+                                <button type="submit" class="btn btn-delete">Supprimer</button>
+                            </form>
+                        </div>
+                    <% } %>
+                    
                 </div>
             <% }) %>
         <% } else { %>

@@ -4,17 +4,70 @@
     <meta charset="UTF-8">
     <title>Inscription</title>
     <link rel="stylesheet" href="/css/style.css">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            font-family: Arial, sans-serif;
+            margin: 0;
+        }
+        .form-container {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            width: 350px;
+            text-align: center;
+        }
+        h1 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+        input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #2575fc;
+            border: none;
+            color: white;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #1a5edb;
+        }
+        p {
+            margin-top: 15px;
+            color: #666;
+        }
+        a {
+            color: #2575fc;
+            text-decoration: none;
+        }
+    </style>
 </head>
 <body>
-    <h1>Créer un compte</h1>
-    <form action="/user/register" method="POST">
-        <input type="text" name="name" placeholder="Prénom" required><br><br>
-        <input type="text" name="lastName" placeholder="Nom de famille" required><br><br>
-        <input type="number" name="age" placeholder="Âge" required><br><br>
-        <input type="email" name="email" placeholder="Email" required><br><br>
-        <input type="password" name="password" placeholder="Mot de passe" required><br><br>
-        <button type="submit">S'inscrire</button>
-    </form>
-    <p>Déjà un compte ? <a href="/login">Connecte-toi ici</a></p>
+    <div class="form-container">
+        <h1>Créer un compte</h1>
+        <form action="/user/register" method="POST">
+            <input type="text" name="name" placeholder="Prénom" required>
+            <input type="text" name="lastName" placeholder="Nom de famille" required>
+            <input type="number" name="age" placeholder="Âge" required>
+            <input type="email" name="email" placeholder="Email" required>
+            <input type="password" name="password" placeholder="Mot de passe" required>
+            <button type="submit">S'inscrire</button>
+        </form>
+        <p>Déjà un compte ? <a href="/login">Connecte-toi ici</a></p>
+    </div>
 </body>
 </html>
