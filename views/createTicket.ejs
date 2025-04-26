@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Créer un Ticket</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            max-width: 500px;
+            margin: auto;
+        }
+        input, textarea, select {
+            padding: 10px;
+            font-size: 16px;
+            width: 100%;
+        }
+        .btn {
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .btn-back {
+            background-color: #6c757d;
+            text-decoration: none;
+            text-align: center;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Créer un nouveau Ticket</h1>
+
+    <form action="/ticket/createTicket" method="POST" enctype="multipart/form-data">
+        <input type="text" name="title" placeholder="Titre" required>
+
+        <select name="status" required>
+            <option value="">-- Statut --</option>
+            <option value="Ouvert">Ouvert</option>
+            <option value="En cours">En cours</option>
+            <option value="Fermé">Fermé</option>
+        </select>
+
+        <textarea name="description" placeholder="Description" rows="5" required></textarea>
+
+        <input type="file" name="image">
+
+        <button type="submit" class="btn">Créer</button>
+    </form>
+
+    <br>
+    <a href="/dashboard" class="btn btn-back">Retour au Dashboard</a>
+
+</body>
+</html>

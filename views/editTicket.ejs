@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Modifier Ticket</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        .form-container {
+            max-width: 600px;
+            margin: auto;
+            background-color: #f9f9f9;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
+        }
+        input, textarea, select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .btn {
+            background-color: #28a745;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .btn-cancel {
+            background-color: #dc3545;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h1>Modifier le Ticket</h1>
+        <form action="/ticket/updateTickets/<%= ticket._id %>" method="POST" enctype="multipart/form-data">
+          <input type="hidden" name="_method" value="PUT">
+      
+          <label for="title">Titre:</label>
+          <input type="text" id="title" name="title" value="<%= ticket.title %>" required>
+      
+          <label for="status">Status:</label>
+          <select id="status" name="status">
+            <option value="Ouvert" <%= ticket.status === 'Ouvert' ? 'selected' : '' %>>Ouvert</option>
+            <option value="En cours" <%= ticket.status === 'En cours' ? 'selected' : '' %>>En cours</option>
+            <option value="Fermé" <%= ticket.status === 'Fermé' ? 'selected' : '' %>>Fermé</option>
+          </select>
+      
+          <label for="description">Description:</label>
+          <textarea id="description" name="description" rows="5"><%= ticket.description %></textarea>
+      
+          <label for="image">Changer l'image :</label>
+          <input type="file" id="image" name="image">
+      
+          <button type="submit" class="btn">Enregistrer</button>
+          <a href="/ticket/dashboard" class="btn btn-cancel">Annuler</a>
+        </form>
+      </div>
+      
+
+</body>
+</html>
