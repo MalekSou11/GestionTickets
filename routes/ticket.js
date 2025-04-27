@@ -99,7 +99,7 @@ router.delete('/deleteTickets/:id', isAdmin,  async (req, res) => {
 const { sendStatusEmail } = require('../sendEmail'); 
 
 
-/* router.post('/updateTickets/:id', async (req, res) => {
+ router.post('/updateTicketsStat/:id', async (req, res) => {
     try {
         const id = req.params.id;
         const newData = req.body;
@@ -133,7 +133,7 @@ const { sendStatusEmail } = require('../sendEmail');
         console.error(err);
         return res.status(500).send(err);
     }
-}); */
+}); 
 
 
 

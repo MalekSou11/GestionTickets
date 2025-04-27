@@ -23,6 +23,9 @@ app.use(session({
     saveUninitialized: false
 }));
 
+/* const cookieParser = require('cookie-parser');
+app.use(cookieParser());
+ */
 
 app.use((req, res, next) => {
     res.locals.user = req.session.user; 

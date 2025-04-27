@@ -36,15 +36,25 @@ router.post('/login', async (req, res) => {
         const validPassword = await bcrypt.compare(password, user.password);
         if (!validPassword) {
             return res.status(400).send('Mot de passe incorrect');
-        }
+        } 
 
-        req.session.user = {
+        /*     payload = {
+                id: user._id,
+            
+                email: user.email
+            }
+             token = jwt.sign(payload, '1234567', { expiresIn: '1h' });
+            res.cookie('token', token, { httpOnly: true });
+            res.redirect('/ticket/dashboard'); */
+        
+
+         req.session.user = {
             id: user._id,
             role: user.role, 
             email: user.email
-        };
-
+        }; 
         res.redirect('/ticket/dashboard');
+      
     } catch (err) {
         console.error(err);
         res.status(500).send('Erreur serveur');
